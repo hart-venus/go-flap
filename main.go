@@ -2,35 +2,38 @@ package main
 
 import (
 	"fmt"
+	"image/color"
 
 	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
+	"github.com/hajimehoshi/ebiten/v2/inpututil"
 )
 
 const (
-	screenWidth  = 300
-	screenHeight = 300
+	screenWidth  = 720
+	screenHeight = 480
 )
 
 type Game struct {
 }
 
 func (g *Game) Update() error {
+	if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
+		fmt.Println("Mouse button is pressed")
+	}
 	return nil
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
-	ebitenutil.DebugPrint(screen, "Hello, World!")
+	screen.Fill(color.RGBA{0x80, 0xa0, 0xc0, 0xff})
 }
 
 func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {
-	return 300, 300
+	return 720, 480
 }
 
 func main() {
-	fmt.Println("Hello, World!")
 	ebiten.SetWindowSize(screenWidth, screenHeight)
-	ebiten.SetWindowTitle("Hello, World!")
+	ebiten.SetWindowTitle("Go Flap!")
 	if err := ebiten.RunGame(&Game{}); err != nil {
 		panic(err)
 	}
